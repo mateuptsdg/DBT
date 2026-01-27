@@ -14,3 +14,17 @@ sources:
               count: 12
               period: day
           loaded_at_field: _etl_loaded_at
+
+models:
+  - name: stg_jaffle_shop_customers
+    columns:
+      - name: customer_id
+        data_tests:
+          - unique
+          - not_null
+  - name: stg_jaffle_shop__orders
+    columns:
+      - name: order_id
+        data_tests:
+          - unique
+          - not_null
