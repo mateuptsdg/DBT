@@ -1,20 +1,33 @@
+sources:
+  - name: jaffle_shop
+    database: raw
+    schema: jaffle_shop
+    tables:
+      - name: customers
+      - name: orders
+      
 models:
   - name: stg_jaffle_shop__orders
+    description: This model serves as a staging layer for orders data from the Jaffle Shop source. It standardizes and prepares order information for further analysis, including details about the order ID, customer ID, order date, and status.
     columns:
       - name: order_id
+        description: A unique identifier for each order.
         data_tests:
           - unique
           - not_null
       - name: customer_id
+        description: The identifier for the customer who placed the order.
         data_tests:
           - not_null
           - relationships:
               to: ref('stg_jaffle_shop_customers')
               field: customer_id
       - name: order_date
+        description: The date when the order was placed.
         data_tests:
           - not_null
       - name: status
+        description: The current status of the order, such as completed, shipped, placed, return_pending, or returned.
         data_tests:
           - accepted_values:
               values: ['completed', 'shipped', 'placed', 'return_pending', 'returned']
