@@ -5,7 +5,7 @@ sources:
     tables:
       - name: customers
       - name: orders
-      
+
 models:
   - name: stg_jaffle_shop__orders
     description: This model serves as a staging layer for orders data from the Jaffle Shop source. It standardizes and prepares order information for further analysis, including details about the order ID, customer ID, order date, and status.
