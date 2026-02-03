@@ -1,5 +1,4 @@
 {% docs descripcion_pedidos %}
-
 El modelo original (TPC-H) esta sustentado sobre 8 tablas relacionadas entre si a traves de PK y FK 
 A continuacon las tablas ordenadas por cardibnalidad. La caridinalidad de LINEITEM es aproximada
 Ver esquerma y explicación en https://docs.snowflake.com/en/user-guide/sample-data-tpch
@@ -12,6 +11,8 @@ Ver esquerma y explicación en https://docs.snowflake.com/en/user-guide/sample-d
 - SUPPLIER (10K RCD)
 - NATION (25 RCD)
 - REGION (5 RCD)
+
+RCD == Record
 
 REGION (R_)
  └── PK: REGIONKEY
@@ -45,5 +46,5 @@ REGION (R_)
                      │
                      └── PART (P_)
                           └── PK: PARTKEY
-
+                          
 {% enddocs %}
