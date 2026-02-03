@@ -46,5 +46,10 @@ REGION (R_)
                      │
                      └── PART (P_)
                           └── PK: PARTKEY
-                          
+
+Todos estos datos se declaran primero en staging (_src_tpch.yml) (se tienen que filtrar y hacer controles de calidad antes
+ de pasar al modelo y a los marts)
+
+ El esquema inicial es esquema snowflake, puede que para facilitar las consultas y mejorar eficiencia tengamos que migrar a un esquema estrella
+
 {% enddocs %}
