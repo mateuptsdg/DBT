@@ -48,8 +48,12 @@ REGION (R_)
                           └── PK: PARTKEY
 
 Todos estos datos se declaran primero en staging (_src_tpch.yml) (se tienen que filtrar y hacer controles de calidad antes
- de pasar al modelo y a los marts)
+ de pasar al modelo y a los marts). Se hacen test de calidad de los datos:
 
- El esquema inicial es esquema snowflake, puede que para facilitar las consultas y mejorar eficiencia tengamos que migrar a un esquema estrella
+Tests de data primarios
+Las PK se fuerzan a ser unicas y no nulas
+
+ El esquema inicial es esquema snowflake, puede que para facilitar las consultas y mejorar eficiencia tengamos que migrar a un esquema estrella.
+ 
 
 {% enddocs %}
