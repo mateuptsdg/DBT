@@ -6,6 +6,7 @@ sources:
     schema: TPCH_SF1
     tables:
       - name: orders
+        description: "Contiene todas las ordenes, con su informacion de prioridad, comprador..."
         columns:
           - name: o_orderkey
             tests:
@@ -13,6 +14,7 @@ sources:
               - not_null
 
       - name: lineitem
+        description: "Contiene cada articulo que se ha comprado, con la llave de la orden, la llave del supplier y la llave del articulo"
         columns:
           - name: l_orderkey
             tests:
@@ -22,6 +24,7 @@ sources:
               - not_null
 
       - name: customer
+        description: "contiene la info del comprador, tlf, direccion y nombre"
         columns:
           - name: c_custkey
             tests:
@@ -29,6 +32,7 @@ sources:
               - not_null
 
       - name: supplier
+        description: "Informacion de los proveedores, su pais, direccion, nombre, tlf"
         columns:
           - name: s_suppkey
             tests:
@@ -36,6 +40,7 @@ sources:
               - not_null
 
       - name: part
+        description: "informacion de los distintos productos que se venden"
         columns:
           - name: p_partkey
             tests:
@@ -43,6 +48,7 @@ sources:
               - not_null
 
       - name: nation
+        description: "Sirve de puente entre las regiones y las demas tablas, contiene el pais, su llave y la clave de la region"
         columns:
           - name: n_nationkey
             tests:
@@ -50,6 +56,7 @@ sources:
               - not_null
 
       - name: region
+        description: "Contiene los contienentes y se conecta a los paises con REGIONKEY"
         columns:
           - name: r_regionkey
             tests:
@@ -57,6 +64,7 @@ sources:
               - not_null
 
       - name: partsupp
+        description: "tabla intermedia de combinacion de las partes que se venden con sus proveedores, que dispone de la disponibilidad o stock"
         columns:
           - name: ps_partkey
             tests:
