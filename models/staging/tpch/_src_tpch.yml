@@ -55,3 +55,15 @@ sources:
             tests:
               - unique
               - not_null
+
+      - name: partsupp
+        columns:
+          - name: ps_partkey
+            tests:
+              - not_null
+          - name: ps_suppkey
+            tests:
+              - not_null
+          - name: ps_availqty
+            tests:
+              - not_null
