@@ -93,5 +93,14 @@ Singular Tests: (Carpeta de tests)
 - Test de precios aceptados (que el precio sea > 0)
 - Que la fecha de compra y la fecha d shipping sea coherente
 
+MACROS
+Hay multiples funciones que aparecen recurrentemente:
+- Pricing (el precio final despues de añadirle promociones y taxes)
+- not future (para ver que las fechas no superan la actual)
+- is positive -> el cose es superior a cero 
+
+Dentro de matrs se almacenan las dimensiones y la fact table
+----------- MODELAJE -------------
+-No se ha creado dimension geo, ya que priorizo la velocidad y los bajos joins antes que el almacenaje
 
 {% enddocs %}
