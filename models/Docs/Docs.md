@@ -89,9 +89,9 @@ De lineitme:
 - Shipmode: (TRUCK, AIR, RAIL, SHIP, MAIL, FOB, REG AIR)
 
 Singular Tests: (Carpeta de tests)
--
--
--
+- Tests de valores aceptados (que la cantidad de la compra > 0)
+- Test de precios aceptados (que el precio sea > 0)
+- Que la fecha de compra y la fecha d shipping sea coherente
 
 
 {% enddocs %}
