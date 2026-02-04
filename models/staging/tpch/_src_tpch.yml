@@ -50,8 +50,8 @@ sources:
             tests:
               - not_null
               # Test para asegurar que no hay fechas futuras imposibles
-              - dbt_utils.expression_is_true:
-                  expression: "<= current_date"
+              - is_not_future
+                  
 
                   
       - name: lineitem

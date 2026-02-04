@@ -9,11 +9,9 @@
 with line_item_totals as (
     select
         l_orderkey,
+        -- Sustituimos la fórmula manual por la macro oficial
         sum(
-            round(
-                round(l_extendedprice * (1 - l_discount) * (1 + l_tax), 2), 
-                2
-            )
+            {{ calculate_net_amount('l_extendedprice', 'l_discount', 'l_tax') }}
         ) as calculated_total
     from {{ source('tpch_sample', 'lineitem') }}
     group by 1
