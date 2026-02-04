@@ -34,8 +34,7 @@ sources:
             description: "Total de la factura"
             tests:
               - not_null
-              - dbt_utils.expression_is_true:
-                  expression: ">= 0"
+              - is_positive
 
           - name: o_orderpriority
             description: "Prioridad de la orden para logística"
@@ -81,14 +80,12 @@ sources:
           - name: l_quantity
             tests:
               - not_null
-              - dbt_utils.expression_is_true:
-                  expression: "> 0"
+              - is_positive
 
           - name: l_tax
             tests:
               - not_null
-              - dbt_utils.expression_is_true:
-                  expression: ">= 0"
+              - is_positive
 
           - name: l_returnflag
             tests:
