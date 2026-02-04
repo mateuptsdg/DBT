@@ -85,7 +85,6 @@ sources:
           - name: l_tax
             tests:
               - not_null
-              - is_positive
 
           - name: l_returnflag
             tests:

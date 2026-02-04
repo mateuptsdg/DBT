@@ -2,41 +2,39 @@ with orders as (
     select * from {{ ref('stg_tpch__orders') }}
 ),
 
-line_items as (
+line_item as (
     select * from {{ ref('stg_tpch__lineitem') }}
 ),
 
 final as (
     select
-        line_items.lineitem_id,
+        -- Llaves (Surrogate Keys o Natural Keys)
+        line_item.l_orderkey as order_key,
+        line_item.l_partkey as part_key,
+        line_item.l_suppkey as supplier_key,
+        line_item.l_linenumber as line_number,
         
-        -- Dimensiones (FK)
-        orders.order_id,
-        orders.customer_id,
-        line_items.part_id,
-        line_items.supplier_id,
+        -- Dimensiones Degeneradas y Atributos
+        orders.o_orderstatus as order_status,
+        line_item.l_returnflag as return_flag,
+        line_item.l_linestatus as line_status,
+        orders.o_clerk as clerk_id
         
-        -- Atributos de la orden (Contexto)
-        orders.status_code as order_status,
-        orders.clerk_name,  -- Tu ID de "agente" de ventas
+        -- Métricas de Negocio usando Macros
+        line_item.l_quantity as quantity,
+        line_item.l_extendedprice as gross_item_sales_amount,
         
-        -- Fechas (Crucial para el análisis temporal que buscabas)
-        orders.order_date,
-        line_items.ship_date,
-        line_items.commit_date,
-        line_items.receipt_date,
+        {{ calculate_net_amount('line_item.l_extendedprice', 'line_item.l_discount') }} as discounted_item_sales_amount,
         
-        -- Métricas (Hechos para sumar)
-        line_items.quantity,
-        line_items.extended_price,
-        line_items.discount_percentage,
-        line_items.tax_rate,
+        {{ calculate_net_amount('line_item.l_extendedprice', 'line_item.l_discount', 'line_item.l_tax') }} as net_item_sales_amount,
         
-        -- Cálculo de valor de negocio
-        round((line_items.extended_price * (1 - line_items.discount_percentage)), 2) as net_item_sales_amount
+        -- Fechas
+        orders.o_orderdate as order_date,
+        line_item.l_shipdate as ship_date
 
-    from line_items
-    inner join orders on line_items.order_id = orders.order_id
+    from line_item
+    inner join orders 
+        on line_item.l_orderkey = orders.o_orderkey
 )
 
 select * from final
