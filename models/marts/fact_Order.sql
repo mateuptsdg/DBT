@@ -13,6 +13,7 @@ final as (
         li.order_id,
         li.part_id,
         li.supplier_id,
+        o.customer_id,
         
         o.status_code as order_status,
         li.return_flag,
@@ -28,7 +29,7 @@ final as (
 
     from line_items as li
     inner join orders as o 
-        on li.order_id = o.order_id -- <--- El cableado ahora coincide
+        on li.order_id = o.order_id 
 )
 
 select * from final

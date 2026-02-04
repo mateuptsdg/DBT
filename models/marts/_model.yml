@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: fact_Order    
+    description: "Tabla de hechos que contiene una línea por cada item vendido."
+    columns:
+      - name: lineitem_id
+        description: "Llave primaria de la tabla de hechos."
+        tests:
+          - not_null
+          - unique
+
+      - name: customer_id
+        description: "FK que conecta con la dimensión de clientes."
+        tests:
+          - not_null
+          - relationships:       
+              to: ref('dim_Customers')
+              field: customer_id
+
+      - name: net_item_sales_amount
+        description: "Monto neto tras descuentos e impuestos."
