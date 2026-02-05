@@ -6,8 +6,8 @@ final as (
     select
         part_id,
         part_name,
-        manufacturer_name,
-        brand_name,
+        {{ remove_prefix('manufacturer_name') }} as manufacturer_num,
+        {{ remove_prefix('brand_name') }} as brand_num,
         part_type,
         part_size,
         container_type,

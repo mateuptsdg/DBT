@@ -13,7 +13,7 @@ regions as (
 final as (
     select
         s.supplier_id,
-        s.supplier_name,
+        {{ remove_prefix('s.supplier_name') }} as supplier_name,
         s.phone_number,
         s.account_balance,
         
