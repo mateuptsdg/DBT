@@ -1,3 +1,11 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key='lineitem_id',
+        on_schema_change='fail'
+    )
+}}
+
 with source as (
 
     select * from {{ source('tpch_sample', 'lineitem') }}
