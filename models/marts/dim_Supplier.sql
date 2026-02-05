@@ -20,9 +20,9 @@ final as (
         
         -- Geografía del Proveedor
         n.nation_name as supplier_nation,
-        r.region_name as supplier_region,
+        r.region_name as supplier_region
         
-        s.comment
+        
 
     from suppliers as s
     left join nations as n 

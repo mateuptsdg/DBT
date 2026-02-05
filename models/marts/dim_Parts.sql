@@ -12,7 +12,6 @@ final as (
         part_size,
         container_type,
         retail_price,
-        comment
     from parts
 )
 

@@ -13,18 +13,14 @@ regions as (
 final as (
     select
         c.customer_id,
-        c.customer_name,
-        c.address,
         c.phone_number,
         c.account_balance,
         c.market_segment,
         
         -- Información geográfica desnormalizada
         n.nation_name,
-        r.region_name,
+        r.region_name
         
-        c.comment
-
     from customers as c
     left join nations as n 
         on c.nation_id = n.nation_id
