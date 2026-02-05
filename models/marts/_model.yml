@@ -20,3 +20,16 @@ models:
 
       - name: net_item_sales_amount
         description: "Monto neto tras descuentos e impuestos."
+
+  - name: fact_Stock
+    columns:
+      - name: stock_item_key
+        tests:
+          - unique
+          - not_null
+      - name: available_quantity
+        tests:
+          - is_positive 
+      - name: total_stock_value
+        tests:
+          - is_positive
