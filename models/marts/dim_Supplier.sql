@@ -14,7 +14,6 @@ final as (
     select
         s.supplier_id,
         s.supplier_name,
-        s.address,
         s.phone_number,
         s.account_balance,
         
