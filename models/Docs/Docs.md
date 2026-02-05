@@ -100,7 +100,10 @@ Hay multiples funciones que aparecen recurrentemente:
 - is positive -> el cose es superior a cero 
 
 Dentro de matrs se almacenan las dimensiones y la fact table
+
 ----------- MODELAJE -------------
+
 -No se ha creado dimension geo, ya que priorizo la velocidad y los bajos joins antes que el almacenaje
+
 
 {% enddocs %}

@@ -36,8 +36,8 @@ final as (
         {{ calculate_net_amount('li.extended_price', 'li.discount_percentage', 'li.tax_rate') }} as net_item_sales_amount,
         
         li.quantity,
-        o.order_date,
-        li.ship_date
+        {{ to_date_key('o.order_date') }} as order_date_key,
+        {{ to_date_key('li.ship_date') }} as ship_date_key
 
     from line_items as li
     inner join orders as o 
