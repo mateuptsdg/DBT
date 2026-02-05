@@ -19,7 +19,7 @@ final as (
         li.return_flag,
         
         -- Aplicamos las macros con los nombres nuevos
-        o.clerk_name as clerk_id,
+        {{ clean_clerk_ID('o.o_clerk') }} as clerk_id,
         
         {{ calculate_net_amount('li.extended_price', 'li.discount_percentage', 'li.tax_rate') }} as net_item_sales_amount,
         
