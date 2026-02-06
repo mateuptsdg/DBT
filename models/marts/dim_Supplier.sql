@@ -1,7 +1,7 @@
 {{ config(materialized='table') }}
 
 with suppliers as (
-    select * from {{ ref('stg_tpch__supplier') }}
+    select * from {{ ref('clean_supplier') }}
 ),
 
 -- En lugar de llamar a nation y region por separado, llamamos a tu modelo intermedio
@@ -12,7 +12,7 @@ locations as (
 final as (
     select
         s.supplier_id,
-        {{ remove_prefix('s.supplier_name') }} as supplier_name,
+        s.supplier_name,
         
         s.phone_number,
         s.account_balance,
