@@ -8,25 +8,22 @@ parts as (
 
 final as (
     select
-        -- Llave Primaria Técnica (PK)
+        -- PK
         {{ dbt_utils.generate_surrogate_key(['ps.part_id', 'ps.supplier_id']) }} as stock_item_key,
 
-        -- Llaves Foráneas (FK)
+        -- FK
         ps.part_id,
         ps.supplier_id,
-        
-        -- Métricas de Stock
+    
         ps.available_quantity as available_quantity,
         ps.supply_cost as unit_cost,
-        
-        -- Métrica Calculada: Valor total del stock para este producto/proveedor
-        (ps.available_quantity * ps.supply_cost) as total_stock_value,
+        p.retail_price as market_retail_price,
 
-        -- Atributos de apoyo (opcional, para facilitar el BI)
-        p.retail_price as market_retail_price
+        -- Métrica Calculada
+        (ps.available_quantity * ps.supply_cost) as total_stock_value
 
-    from part_suppliers as ps
-    inner join parts as p 
+    from part_suppliers ps
+    inner join parts p 
         on ps.part_id = p.part_id
 )
 

@@ -1,33 +1,28 @@
+{{ config(materialized='table') }}
+
 with suppliers as (
     select * from {{ ref('stg_tpch__supplier') }}
 ),
 
-nations as (
-    select * from {{ ref('stg_tpch__nation') }}
-),
-
-regions as (
-    select * from {{ ref('stg_tpch__region') }}
+-- En lugar de llamar a nation y region por separado, llamamos a tu modelo intermedio
+locations as (
+    select * from {{ ref('nation_region') }} 
 ),
 
 final as (
     select
         s.supplier_id,
         {{ remove_prefix('s.supplier_name') }} as supplier_name,
+        
         s.phone_number,
         s.account_balance,
         
-        -- Geografía del Proveedor
-        n.nation_name as supplier_nation,
-        r.region_name as supplier_region
+        l.nation_name as supplier_nation,
+        l.region_name as supplier_region
         
-        
-
     from suppliers as s
-    left join nations as n 
-        on s.nation_id = n.nation_id
-    left join regions as r 
-        on n.region_id = r.region_id
+    left join locations as l 
+        on s.nation_id = l.nation_id
 )
 
 select * from final

@@ -1,10 +1,6 @@
-{{
-    config(
-        materialized='incremental',
-        unique_key='lineitem_id',
-        on_schema_change='fail'
-    )
-}}
+-- Se define la carga incremental, aunque para ser realistas (y conectarlo a un Streamlit) esta base de datos tendria
+-- que ser capaz de actualizarse al momento, es por eso que se podria definir las tablas como tablas dinámicas
+-- En este caso, al ser tablas predefinidas de snowflake, da poco juego (no se deben poder hacer inserts a esa BBDD)
 
 with orders as (
     select * from {{ ref('stg_tpch__orders') }}
@@ -30,9 +26,7 @@ final as (
         o.status_code as order_status,
         li.return_flag,
         
-        -- Tu macro genérica para limpiar el prefijo
         {{ remove_prefix('o.clerk_name') }} as clerk_id,
-        
         {{ calculate_net_amount('li.extended_price', 'li.discount_percentage', 'li.tax_rate') }} as net_item_sales_amount,
         
         li.quantity,

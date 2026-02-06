@@ -1,13 +1,12 @@
+{{ config(materialized='table') }}
+
 with customers as (
     select * from {{ ref('stg_tpch__customer') }}
 ),
 
-nations as (
-    select * from {{ ref('stg_tpch__nation') }}
-),
-
-regions as (
-    select * from {{ ref('stg_tpch__region') }}
+-- Reemplazamos 'nations' y 'regions' por tu modelo intermedio unificado
+locations as (
+    select * from {{ ref('nation_region') }}
 ),
 
 final as (
@@ -16,16 +15,12 @@ final as (
         c.phone_number,
         c.account_balance,
         c.market_segment,
-        
-        -- Información geográfica desnormalizada
-        n.nation_name,
-        r.region_name
+        l.nation_name,
+        l.region_name
         
     from customers as c
-    left join nations as n 
-        on c.nation_id = n.nation_id
-    left join regions as r 
-        on n.region_id = r.region_id
+    left join locations as l 
+        on c.nation_id = l.nation_id
 )
 
 select * from final
