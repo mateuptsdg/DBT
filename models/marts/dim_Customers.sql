@@ -1,7 +1,7 @@
 {{ config(materialized='table') }}
 
 with customers as (
-    select * from {{ ref('stg_tpch__customer') }}
+    select * from {{ ref('clean_customers') }}
 ),
 
 -- Reemplazamos 'nations' y 'regions' por tu modelo intermedio unificado

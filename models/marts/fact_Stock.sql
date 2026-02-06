@@ -1,9 +1,9 @@
 with part_suppliers as (
-    select * from {{ ref('stg_tpch__partsupp') }}
+    select * from {{ ref('clean_partsupp') }}
 ),
 
 parts as (
-    select * from {{ ref('stg_tpch__part') }}
+    select * from {{ ref('clean_parts') }}
 ),
 
 final as (
@@ -15,12 +15,10 @@ final as (
         ps.part_id,
         ps.supplier_id,
     
-        ps.available_quantity as available_quantity,
-        ps.supply_cost as unit_cost,
+        ps.available_quantity,
+        ps.unit_cost,
         p.retail_price as market_retail_price,
-
-        -- Métrica Calculada
-        (ps.available_quantity * ps.supply_cost) as total_stock_value
+        ps.total_stock_value
 
     from part_suppliers ps
     inner join parts p 
