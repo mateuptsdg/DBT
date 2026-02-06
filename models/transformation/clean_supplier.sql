@@ -6,8 +6,8 @@ final as (
         s.supplier_id,
         {{ remove_prefix('s.supplier_name') }} as supplier_name,  
         s.phone_number,
-        s.account_balance 
+        s.account_balance,
+        s.nation_id
         from suppliers s)
         
-
 select * from final
