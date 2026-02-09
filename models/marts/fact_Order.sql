@@ -18,7 +18,6 @@ line_items as (
 final as (
     select
         li.lineitem_id,
-        li.order_id,
         li.part_id,
         li.supplier_id,
         o.customer_id,
