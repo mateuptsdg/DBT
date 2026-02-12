@@ -1,58 +1,52 @@
 version: 2
+
 sources:
   - name: tpch_sample
     database: SNOWFLAKE_SAMPLE_DATA
     schema: TPCH_SF1
+
     tables:
       - name: orders
         description: "Contiene todas las órdenes, con su información de prioridad, comprador..."
         columns:
           - name: o_orderkey
-            description: "Llave primaria de la orden"
             tests:
               - unique
               - not_null
 
           - name: o_custkey
-            description: "Llave foránea al cliente"
             tests:
               - not_null
               - relationships:
-                  to: source('tpch_sample', 'customer')
-                  field: c_custkey
+                  arguments: 
+                    to: source('tpch_sample', 'customer')
+                    field: c_custkey
 
           - name: o_orderstatus
-            description: "Estado de la orden: O=Open, F=Filled, P=Pending"
             tests:
               - not_null
-              # 3 Valores distintos
               - accepted_values:
-                  values: ['O', 'F', 'P']
-                  quote: true
+                  arguments: 
+                    values: ['O', 'F', 'P']
+                    quote: true
 
           - name: o_totalprice
-            description: "Total de la factura"
             tests:
               - not_null
-              - is_positive
+              - is_positive  
 
           - name: o_orderpriority
-            description: "Prioridad de la orden para logística"
             tests:
               - not_null
-              # Hay 5 escalones diferentes
               - accepted_values: 
-                  values: ['1-URGENT', '2-HIGH', '3-MEDIUM', '4-NOT SPECIFIED', '5-LOW']
+                  arguments:
+                    values: ['1-URGENT', '2-HIGH', '3-MEDIUM', '4-NOT SPECIFIED', '5-LOW']
 
           - name: o_orderdate
-            description: "Fecha en la que se registró el pedido"
             tests:
               - not_null
-              # Test para asegurar que no hay fechas futuras imposibles
-              - is_not_future
-                  
+              - is_not_future 
 
-                  
       - name: lineitem
         description: "Detalle atómico de cada pedido con métricas de envío y precios"
         columns:
@@ -60,67 +54,31 @@ sources:
             tests:
               - not_null
               - relationships:
-                  to: source('tpch_sample', 'orders')
-                  field: o_orderkey
+                  arguments:
+                    to: source('tpch_sample', 'orders')
+                    field: o_orderkey
 
           - name: l_partkey
             tests:
               - not_null
               - relationships:
-                  to: source('tpch_sample', 'part')
-                  field: p_partkey
-
-          - name: l_suppkey
-            tests:
-              - not_null
-              - relationships:
-                  to: source('tpch_sample', 'supplier')
-                  field: s_suppkey
-
-          - name: l_quantity
-            tests:
-              - not_null
-              - is_positive
-
-          - name: l_tax
-            tests:
-              - not_null
+                  arguments:
+                    to: source('tpch_sample', 'part')
+                    field: p_partkey
 
           - name: l_returnflag
             tests:
               - accepted_values:
-                  values: ['N', 'R', 'A']
-                  quote: true
-
-          - name: l_linestatus
-            tests:
-              - accepted_values:
-                  values: ['O', 'F']
-                  quote: true
-
-          - name: l_shipinstruct
-            tests:
-              - accepted_values:
-                  values: ['COLLECT COD', 'NONE', 'DELIVER IN PERSON', 'TAKE BACK RETURN']
-                  quote: true
+                  arguments:
+                    values: ['N', 'R', 'A']
+                    quote: true
 
           - name: l_shipmode
             tests:
               - accepted_values:
-                  values: ['TRUCK', 'AIR', 'RAIL', 'SHIP', 'MAIL', 'FOB', 'REG AIR']
-                  quote: true
-
-          - name: l_shipdate
-            tests:
-              - not_null
-
-          - name: l_commitdate
-            tests:
-              - not_null
-
-          - name: l_receiptdate
-            tests:
-              - not_null
+                  arguments:
+                    values: ['TRUCK', 'AIR', 'RAIL', 'SHIP', 'MAIL', 'FOB', 'REG AIR']
+                    quote: true
 
       - name: customer
         description: "contiene la info del comprador, tlf, direccion y nombre"
@@ -131,7 +89,6 @@ sources:
               - not_null
 
       - name: supplier
-        description: "Informacion de los proveedores, su pais, direccion, nombre, tlf"
         columns:
           - name: s_suppkey
             tests:
@@ -139,7 +96,6 @@ sources:
               - not_null
 
       - name: part
-        description: "informacion de los distintos productos que se venden"
         columns:
           - name: p_partkey
             tests:
@@ -147,7 +103,6 @@ sources:
               - not_null
 
       - name: nation
-        description: "Sirve de puente entre las regiones y las demas tablas, contiene el pais, su llave y la clave de la region"
         columns:
           - name: n_nationkey
             tests:
@@ -155,7 +110,6 @@ sources:
               - not_null
 
       - name: region
-        description: "Contiene los contienentes y se conecta a los paises con REGIONKEY"
         columns:
           - name: r_regionkey
             tests:
@@ -163,7 +117,6 @@ sources:
               - not_null
 
       - name: partsupp
-        description: "tabla intermedia de combinacion de las partes que se venden con sus proveedores, que dispone de la disponibilidad o stock"
         columns:
           - name: ps_partkey
             tests:

@@ -14,21 +14,23 @@ models:
         description: "FK que conecta con la dimensión de clientes."
         tests:
           - not_null
-          - relationships:       
-              to: ref('dim_Customers')
-              field: customer_id
+          - relationships:
+              arguments: # Añadido para corregir la sintaxis
+                to: ref('dim_Customers')
+                field: customer_id
 
       - name: part_id
         tests:
           - not_null
           - relationships:
-              to: ref('dim_Parts')
-              field: part_id
+              arguments: # Añadido para corregir la sintaxis
+                to: ref('dim_Parts')
+                field: part_id
 
       - name: net_item_sales_amount
         description: "Monto neto tras descuentos e impuestos."
         tests:
-          - is_positive # Aplicando tu macro de limpieza
+          - is_positive
 
   - name: fact_Stock
     description: "Balance de inventario por cada combinación de parte y proveedor."
@@ -42,8 +44,9 @@ models:
       - name: part_id
         tests:
           - relationships:
-              to: ref('dim_Parts')
-              field: part_id
+              arguments: # Añadido para corregir la sintaxis
+                to: ref('dim_Parts')
+                field: part_id
 
       - name: available_quantity
         description: "Cantidad de unidades actualmente en stock."
