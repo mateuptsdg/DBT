@@ -10,7 +10,6 @@ line_items as (
     select * from {{ ref('clean_lineitem') }}
     
     {% if is_incremental() %}
-    -- Solo traemos las líneas cuya fecha sea posterior a la última cargada en esta Fact
     where ship_date > (select max(ship_date) from {{ this }})
     {% endif %}
 ),
