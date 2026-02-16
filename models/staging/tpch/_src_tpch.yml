@@ -80,6 +80,36 @@ sources:
                     values: ['TRUCK', 'AIR', 'RAIL', 'SHIP', 'MAIL', 'FOB', 'REG AIR']
                     quote: true
 
+          - name: l_quantity
+            tests: 
+              - not_null
+              - is_positive:
+                  config:
+                    severity: warn
+                    warn_if: ">1"
+
+          - name: l_discount
+            description: "Porcentaje de descuento aplicado al ítem"
+            tests:
+              - dbt_expectations.expect_column_values_to_be_between:
+                  min_value: 0
+                  max_value: 0.99
+                  config:
+                    severity: warn
+                    warn_if: ">10" 
+                    store_failures: true    
+
+          - name: l_tax
+            description: "Impuesto aplicado a la línea de detalle"
+            tests:
+              - dbt_expectations.expect_column_values_to_be_between:
+                  min_value: 0
+                  max_value: 0.99
+                  config:
+                    severity: warn
+                    warn_if: ">10"
+                    store_failures: true
+
       - name: customer
         description: "contiene la info del comprador, tlf, direccion y nombre"
         columns:
