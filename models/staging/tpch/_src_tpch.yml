@@ -118,6 +118,25 @@ sources:
               - unique
               - not_null
 
+          - name: c_nationkey
+            description: "Llave foránea que conecta al cliente con su nación/país"
+            tests:
+              - dbt_expectations.expect_column_values_to_be_between: 
+                  min_value: 0
+                  max_value: 24
+              - relationships:
+                  to: ref('stg_tpch__nation') 
+                  field: nation_id
+
+          - name: c_acctbal
+            description: "Saldo de la cuenta del cliente"
+            tests:
+              - not_null
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: number
+                  config:
+                    severity: error
+
       - name: supplier
         columns:
           - name: s_suppkey
@@ -125,12 +144,37 @@ sources:
               - unique
               - not_null
 
+          - name: s_nationkey
+            description: "Llave foránea que conecta al cliente con su nación/país"
+            tests:
+              - dbt_expectations.expect_column_values_to_be_between: 
+                  min_value: 0
+                  max_value: 24
+              - relationships:
+                  to: ref('stg_tpch__nation') 
+                  field: nation_id
+          
+          - name: s_acctbal
+            description: "Saldo de la cuenta del cliente"
+            tests:
+              - not_null
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: number 
+                  config:
+                    severity: error
+
       - name: part
         columns:
           - name: p_partkey
             tests:
               - unique
               - not_null
+          - name: p_size
+            tests:
+              - is_positive
+          - name: p_retailprice
+            tests:
+              - is_positive 
 
       - name: nation
         columns:
@@ -138,6 +182,16 @@ sources:
             tests:
               - unique
               - not_null
+          - name: n_regionkey
+            tests:
+              - dbt_expectations.expect_column_values_to_be_between: 
+                  min_value: 0
+                  max_value: 4
+              - relationships:
+                  to: ref('stg_tpch__region') 
+                  field: region_id
+              
+
 
       - name: region
         columns:
@@ -151,9 +205,19 @@ sources:
           - name: ps_partkey
             tests:
               - not_null
+              - relationships:
+                  to: ref('stg_tpch__part')
+                  field: part_id
           - name: ps_suppkey
             tests:
               - not_null
+              - relationships:
+                  to: ref('stg_tpch__supplier')
+                  field: supplier_id
           - name: ps_availqty
             tests:
               - not_null
+              - is_positive
+          - name: ps_supplycost
+            tests: 
+              - is_positive
