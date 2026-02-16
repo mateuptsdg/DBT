@@ -6,12 +6,10 @@
 
 with calculated_amounts as (
     select
-        l_orderkey,
-        l_linenumber,
-        {{ calculate_net_amount('l_extendedprice', 'l_discount', 'l_tax') }} as net_amount
-    from {{ source('tpch_sample', 'lineitem') }}
+        net_item_sales_amount
+    from {{ ref("fact_Order") }}
 )
 
 select *
 from calculated_amounts
-where net_amount < 0
+where net_item_sales_amount < 0

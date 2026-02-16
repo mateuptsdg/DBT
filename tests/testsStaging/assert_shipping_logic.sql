@@ -1,4 +1,4 @@
--- dbt busca FILAS DE ERROR. Si el query devuelve algo, el test FALLA.
+
 select
     l_orderkey,
     o_orderdate,
