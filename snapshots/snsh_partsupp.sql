@@ -20,14 +20,9 @@ with source as (
 renamed as (
 
     select
-        -- 1. Llave Única para el Snapshot
         {{ dbt_utils.generate_surrogate_key(['ps_partkey', 'ps_suppkey']) }} as partsupp_id,
-
-        -- 2. Llaves Foráneas (FK)
         ps_partkey as part_id,
         ps_suppkey as supplier_id,
-
-        -- 3. Atributos que queremos vigilar
         ps_availqty as available_quantity,
         ps_supplycost as supply_cost,
         ps_comment as comment
