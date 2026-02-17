@@ -7,11 +7,8 @@ parts as (
 ),
 
 final as (
-    select
-        -- PK
+        select 
         {{ dbt_utils.generate_surrogate_key(['ps.part_id', 'ps.supplier_id']) }} as stock_item_key,
-
-        -- FK
         ps.part_id,
         ps.supplier_id,
     
