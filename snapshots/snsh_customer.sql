@@ -1,4 +1,4 @@
-{% snapshot snsh_customers %}
+{% snapshot snsh_customer %}
 
 {{
     config(

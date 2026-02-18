@@ -18,7 +18,7 @@ sources:
             tests:
               - not_null
               - relationships:
-                  arguments: 
+                  arguments:
                     to: source('tpch_sample', 'customer')
                     field: c_custkey
 
@@ -26,7 +26,7 @@ sources:
             tests:
               - not_null
               - accepted_values:
-                  arguments: 
+                  arguments:
                     values: ['O', 'F', 'P']
                     quote: true
 
@@ -38,7 +38,7 @@ sources:
           - name: o_orderpriority
             tests:
               - not_null
-              - accepted_values: 
+              - accepted_values:
                   arguments:
                     values: ['1-URGENT', '2-HIGH', '3-MEDIUM', '4-NOT SPECIFIED', '5-LOW']
 
@@ -92,8 +92,9 @@ sources:
             description: "Porcentaje de descuento aplicado al ítem"
             tests:
               - dbt_expectations.expect_column_values_to_be_between:
-                  min_value: 0
-                  max_value: 0.99
+                  arguments:
+                    min_value: 0
+                    max_value: 0.99
                   config:
                     severity: warn
                     warn_if: ">10" 
@@ -103,8 +104,9 @@ sources:
             description: "Impuesto aplicado a la línea de detalle"
             tests:
               - dbt_expectations.expect_column_values_to_be_between:
-                  min_value: 0
-                  max_value: 0.99
+                  arguments:
+                    min_value: 0
+                    max_value: 0.99
                   config:
                     severity: warn
                     warn_if: ">10"
@@ -121,19 +123,22 @@ sources:
           - name: c_nationkey
             description: "Llave foránea que conecta al cliente con su nación/país"
             tests:
-              - dbt_expectations.expect_column_values_to_be_between: 
-                  min_value: 0
-                  max_value: 24
+              - dbt_expectations.expect_column_values_to_be_between:
+                  arguments:  
+                    min_value: 0
+                    max_value: 24
               - relationships:
-                  to: ref('stg_tpch__nation') 
-                  field: nation_id
+                  arguments: 
+                    to: ref('stg_tpch__nation') 
+                    field: nation_id
 
           - name: c_acctbal
             description: "Saldo de la cuenta del cliente"
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_of_type:
-                  column_type: number
+                  arguments:
+                    column_type: number
                   config:
                     severity: error
 
@@ -147,19 +152,22 @@ sources:
           - name: s_nationkey
             description: "Llave foránea que conecta al cliente con su nación/país"
             tests:
-              - dbt_expectations.expect_column_values_to_be_between: 
-                  min_value: 0
-                  max_value: 24
+              - dbt_expectations.expect_column_values_to_be_between:
+                  arguments: 
+                    min_value: 0
+                    max_value: 24
               - relationships:
-                  to: ref('stg_tpch__nation') 
-                  field: nation_id
+                  arguments:
+                    to: ref('stg_tpch__nation') 
+                    field: nation_id
           
           - name: s_acctbal
             description: "Saldo de la cuenta del cliente"
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_of_type:
-                  column_type: number 
+                  arguments:
+                    column_type: number 
                   config:
                     severity: error
 
@@ -184,12 +192,14 @@ sources:
               - not_null
           - name: n_regionkey
             tests:
-              - dbt_expectations.expect_column_values_to_be_between: 
-                  min_value: 0
-                  max_value: 4
+              - dbt_expectations.expect_column_values_to_be_between:
+                  arguments: 
+                    min_value: 0
+                    max_value: 4
               - relationships:
-                  to: ref('stg_tpch__region') 
-                  field: region_id
+                  arguments:
+                    to: ref('stg_tpch__region') 
+                    field: region_id
               
 
 
@@ -206,14 +216,16 @@ sources:
             tests:
               - not_null
               - relationships:
-                  to: ref('stg_tpch__part')
-                  field: part_id
+                  arguments:
+                    to: ref('stg_tpch__part')
+                    field: part_id
           - name: ps_suppkey
             tests:
               - not_null
               - relationships:
-                  to: ref('stg_tpch__supplier')
-                  field: supplier_id
+                  arguments: 
+                    to: ref('stg_tpch__supplier')
+                    field: supplier_id
           - name: ps_availqty
             tests:
               - not_null
