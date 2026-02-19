@@ -39,7 +39,13 @@ models:
   LP_MateuPastor:
     staging:
       +materialized: table
+      +tags: ["staging"]
     transformation:           
-      +materialized: view   
+      +materialized: view 
+      +tags: ["transforming"]  
     marts:
       +materialized: table
+      +tags: ["marts"]
+        core: 
+        +tags: ["core"]
+        
