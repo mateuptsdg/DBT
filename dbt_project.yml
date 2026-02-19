@@ -46,6 +46,10 @@ models:
     marts:
       +materialized: table
       +tags: ["marts"]
-        core: 
+      core: 
         +tags: ["core"]
-        
+
+
+snapshots: 
+  LP_MateuPastor:
+    

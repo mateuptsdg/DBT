@@ -2,12 +2,19 @@ version: 2
 
 sources:
   - name: tpch_sample
-    database: SNOWFLAKE_SAMPLE_DATA
-    schema: TPCH_SF1
-
+    database: MP_RAW_DATA
+    schema: TPCH
+    config:
+      loaded_at_field: LOADED_AT
     tables:
       - name: orders
         description: "Contiene todas las órdenes, con su información de prioridad, comprador..."
+        config:
+          freshness: 
+            warn_after: 
+              count: 20
+              period: minute
+            
         columns:
           - name: o_orderkey
             tests:
@@ -49,6 +56,11 @@ sources:
 
       - name: lineitem
         description: "Detalle atómico de cada pedido con métricas de envío y precios"
+        config:
+          freshness: 
+            warn_after: 
+              count: 24
+              period: hour
         columns:
           - name: l_orderkey
             tests:
@@ -114,6 +126,11 @@ sources:
 
       - name: customer
         description: "contiene la info del comprador, tlf, direccion y nombre"
+        config:
+          freshness: 
+            warn_after: 
+              count: 30
+              period: day
         columns:
           - name: c_custkey
             tests:
@@ -143,6 +160,11 @@ sources:
                     severity: error
 
       - name: supplier
+        config:
+          freshness: 
+            warn_after: 
+              count: 30
+              period: day
         columns:
           - name: s_suppkey
             tests:
@@ -172,6 +194,11 @@ sources:
                     severity: error
 
       - name: part
+        config:
+          freshness: 
+            warn_after: 
+              count: 24
+              period: hour
         columns:
           - name: p_partkey
             tests:
