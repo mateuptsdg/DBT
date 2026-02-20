@@ -9,7 +9,7 @@ sources:
       tags: staging
     tables:
       - name: orders
-        description: "Contiene todas las órdenes, con su información de prioridad, comprador..."
+        description: '{{doc("src_table_orders")}}'
         config:
           freshness: 
             warn_after: 
@@ -18,11 +18,16 @@ sources:
             
         columns:
           - name: o_orderkey
+            description: '{{doc("src_table_orders_orderkey")}}'
             tests:
               - unique
               - not_null
 
+          - name: o_clerk
+            description: '{{doc("src_table_orders_clerk")}}'
+
           - name: o_custkey
+            description: '{{doc("src_table_orders_custkey")}}'
             tests:
               - not_null
               - relationships:
@@ -31,6 +36,7 @@ sources:
                     field: c_custkey
 
           - name: o_orderstatus
+            description: '{{doc("src_table_orders_orderstatus")}}'
             tests:
               - not_null
               - accepted_values:
@@ -39,11 +45,13 @@ sources:
                     quote: true
 
           - name: o_totalprice
+            description: '{{doc("src_table_orders_totalprice")}}'
             tests:
               - not_null
               - is_positive  
 
           - name: o_orderpriority
+            description: '{{doc("src_table_orders_orderpriority")}}'
             tests:
               - not_null
               - accepted_values:
@@ -51,12 +59,13 @@ sources:
                     values: ['1-URGENT', '2-HIGH', '3-MEDIUM', '4-NOT SPECIFIED', '5-LOW']
 
           - name: o_orderdate
+            description: '{{doc("src_table_orders_orderdate")}}'
             tests:
               - not_null
               - is_not_future 
 
       - name: lineitem
-        description: "Detalle atómico de cada pedido con métricas de envío y precios"
+        description: '{{doc("src_table_lineitem")}}'
         config:
           freshness: 
             warn_after: 
@@ -64,6 +73,7 @@ sources:
               period: hour
         columns:
           - name: l_orderkey
+            description: '{{doc("src_table_lineitem_orderkey")}}'
             tests:
               - not_null
               - relationships:
@@ -72,6 +82,7 @@ sources:
                     field: o_orderkey
 
           - name: l_partkey
+            description: '{{doc("src_table_lineitem_partkey")}}'
             tests:
               - not_null
               - relationships:
@@ -79,7 +90,17 @@ sources:
                     to: source('tpch_sample', 'part')
                     field: p_partkey
 
+          - name: l_suppkey
+            description: '{{doc("src_table_lineitem_suppkey")}}'
+
+          - name: l_linenumber
+            description: '{{doc("src_table_lineitem_linenumber")}}'
+          
+          - name: l_extendedprice
+            description: '{{doc("src_table_lineitem_extendedprice")}}'
+
           - name: l_returnflag
+            description: '{{doc("src_table_lineitem_returnflag")}}'
             tests:
               - accepted_values:
                   arguments:
@@ -87,6 +108,7 @@ sources:
                     quote: true
 
           - name: l_shipmode
+            description: '{{doc("src_table_lineitem_shipmode")}}'
             tests:
               - accepted_values:
                   arguments:
@@ -94,6 +116,7 @@ sources:
                     quote: true
 
           - name: l_quantity
+            description: '{{doc("src_table_lineitem_quantity")}}'
             tests: 
               - not_null
               - is_positive:
@@ -102,7 +125,7 @@ sources:
                     warn_if: ">1"
 
           - name: l_discount
-            description: "Porcentaje de descuento aplicado al ítem"
+            description: '{{doc("src_table_lineitem_discount")}}'
             tests:
               - dbt_expectations.expect_column_values_to_be_between:
                   arguments:
@@ -114,7 +137,7 @@ sources:
                     store_failures: true    
 
           - name: l_tax
-            description: "Impuesto aplicado a la línea de detalle"
+            description: '{{doc("src_table_lineitem_tax")}}'
             tests:
               - dbt_expectations.expect_column_values_to_be_between:
                   arguments:
@@ -124,9 +147,17 @@ sources:
                     severity: warn
                     warn_if: ">10"
                     store_failures: true
+          - name: l_shipdate
+            description: '{{doc("src_table_lineitem_shipdate")}}'
+
+          - name: l_commitdate
+            description: '{{doc("src_table_lineitem_commitdate")}}'
+
+          - name: l_receiptdate
+            description: '{{doc("src_table_lineitem_receiptdate")}}'
 
       - name: customer
-        description: "contiene la info del comprador, tlf, direccion y nombre"
+        description: '{{doc("src_table_customer")}}'
         config:
           freshness: 
             warn_after: 
@@ -134,12 +165,13 @@ sources:
               period: day
         columns:
           - name: c_custkey
+            description: '{{doc("src_table_customer_custkey")}}'
             tests:
               - unique
               - not_null
 
           - name: c_nationkey
-            description: "Llave foránea que conecta al cliente con su nación/país"
+            description: '{{doc("src_table_customer_nationkey")}}'
             tests:
               - dbt_expectations.expect_column_values_to_be_between:
                   arguments:  
@@ -151,7 +183,7 @@ sources:
                     field: nation_id
 
           - name: c_acctbal
-            description: "Saldo de la cuenta del cliente"
+            description: '{{doc("src_table_customer_acctbal")}}'
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_of_type:
@@ -159,8 +191,18 @@ sources:
                     column_type: number
                   config:
                     severity: error
+          
+          - name: c_name
+            description: '{{doc("src_table_customer_name")}}'
+
+          - name: c_phone
+            description: '{{doc("src_table_customer_phone")}}'
+
+          - name: c_mktsegment
+            description: '{{doc("src_table_customer_mktsegment")}}'
 
       - name: supplier
+        description: '{{doc("src_table_supplier")}}'
         config:
           freshness: 
             warn_after: 
@@ -168,12 +210,13 @@ sources:
               period: day
         columns:
           - name: s_suppkey
+            description: '{{doc("src_table_supplier_suppkey")}}'
             tests:
               - unique
               - not_null
 
           - name: s_nationkey
-            description: "Llave foránea que conecta al cliente con su nación/país"
+            description: '{{doc("src_table_supplier_nationkey")}}'
             tests:
               - dbt_expectations.expect_column_values_to_be_between:
                   arguments: 
@@ -185,7 +228,7 @@ sources:
                     field: nation_id
           
           - name: s_acctbal
-            description: "Saldo de la cuenta del cliente"
+            description: '{{doc("src_table_supplier_acctbal")}}'
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_of_type:
@@ -194,7 +237,14 @@ sources:
                   config:
                     severity: error
 
+          - name: s_name
+            description: '{{doc("src_table_supplier_name")}}'
+
+          - name: s_phone
+            description: '{{doc("src_table_supplier_phone")}}'
+
       - name: part
+        description: '{{doc("src_table_part")}}'
         config:
           freshness: 
             warn_after: 
@@ -202,23 +252,41 @@ sources:
               period: hour
         columns:
           - name: p_partkey
+            description: '{{doc("src_table_part_partkey")}}'
             tests:
               - unique
               - not_null
           - name: p_size
+            description: '{{doc("src_table_part_size")}}'
             tests:
               - is_positive
           - name: p_retailprice
+            description: '{{doc("src_table_part_retailprice")}}'
             tests:
               - is_positive 
 
+          - name: p_mfgr
+            description: '{{doc("src_table_part_mfgr")}}'
+
+          - name: p_name
+            description: '{{doc("src_table_part_name")}}'
+
+          - name: p_brand
+            description: '{{doc("src_table_part_brand")}}'
+
+          - name: p_type
+            description: '{{doc("src_table_part_type")}}'
+
       - name: nation
+        description: '{{doc("src_table_nation")}}'
         columns:
           - name: n_nationkey
+            description: '{{doc("src_table_nation_key")}}'
             tests:
               - unique
               - not_null
           - name: n_regionkey
+            description: '{{doc("src_table_nation_regionkey")}}'
             tests:
               - dbt_expectations.expect_column_values_to_be_between:
                   arguments: 
@@ -232,15 +300,19 @@ sources:
 
 
       - name: region
+        description: '{{doc("src_table_region")}}'
         columns:
           - name: r_regionkey
+            description: '{{doc("src_table_region_regionkey")}}'
             tests:
               - unique
               - not_null
 
       - name: partsupp
+        description: '{{doc("src_table_partsupp")}}'
         columns:
           - name: ps_partkey
+            description: '{{doc("src_table_partsupp_partkey")}}'
             tests:
               - not_null
               - relationships:
@@ -248,6 +320,7 @@ sources:
                     to: ref('stg_tpch__part')
                     field: part_id
           - name: ps_suppkey
+            description: '{{doc("src_table_partsupp_suppkey")}}'
             tests:
               - not_null
               - relationships:
@@ -255,9 +328,11 @@ sources:
                     to: ref('stg_tpch__supplier')
                     field: supplier_id
           - name: ps_availqty
+            description: '{{doc("src_table_partsupp_availqty")}}'
             tests:
               - not_null
               - is_positive
           - name: ps_supplycost
+            description: '{{doc("src_table_partsupp_supplycost")}}'
             tests: 
               - is_positive
