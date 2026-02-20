@@ -40,16 +40,25 @@ models:
     staging:
       +materialized: table
       +tags: ["staging"]
+      +grants: 
+        select: ['DBT_TRANSFORMER_ROLE']
+        
     transformation:           
       +materialized: view 
-      +tags: ["transforming"]  
+      +tags: ["transforming"]
+      +grants:
+        select: ["DBT_TRANSFORMER_ROLE"]  
     marts:
       +materialized: table
       +tags: ["marts"]
+      +grants:
+        select: ['BI_READER_ROLE']
       core: 
         +tags: ["core"]
 
 
 snapshots: 
   LP_MateuPastor:
+    +grants:
+      select: ['DBT_TRANSFORMER_ROLE']
     
