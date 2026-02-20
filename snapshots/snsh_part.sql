@@ -7,7 +7,8 @@
       unique_key='part_id',
       strategy='check',
       check_cols=['retail_price', 'container_type', 'part_size'],
-      invalidate_hard_deletes=True
+      invalidate_hard_deletes=True,
+      tags=['staging']
     )
 }}
 

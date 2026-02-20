@@ -1,4 +1,5 @@
-{{ config(materialized='table') }}
+{{ config(materialized='table', 
+    tags=['mart']) }}
 
 with date_dimension as (
     {{ dbt_utils.date_spine(

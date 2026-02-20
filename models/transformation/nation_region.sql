@@ -1,6 +1,7 @@
 {{
     config(
-        materialized='view' 
+        materialized='view',
+        tags='transformation' 
     )
 }}
 -- Nation al final ya tiene una key unica para cada nacion, asi que se prescinde de regionkey

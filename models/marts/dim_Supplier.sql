@@ -1,4 +1,4 @@
-{{ config(materialized='table') }}
+{{ config(materialized='table', tags=['mart'])}}
 
 with suppliers as (
     select * from {{ ref('clean_supplier') }}

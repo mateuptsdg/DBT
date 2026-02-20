@@ -6,6 +6,7 @@ sources:
     schema: TPCH
     config:
       loaded_at_field: LOADED_AT
+      tags: staging
     tables:
       - name: orders
         description: "Contiene todas las órdenes, con su información de prioridad, comprador..."

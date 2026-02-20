@@ -7,7 +7,8 @@
       unique_key='partsupp_id',
       strategy='check',
       check_cols=['available_quantity', 'supply_cost'],
-      invalidate_hard_deletes=True
+      invalidate_hard_deletes=True,
+      tags=['staging']
     )
 }}
 
