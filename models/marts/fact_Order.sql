@@ -1,9 +1,6 @@
--- Se define la carga incremental, aunque para ser realistas (y conectarlo a un Streamlit) esta base de datos tendria
--- que ser capaz de actualizarse al momento, es por eso que se podria definir las tablas como tablas dinámicas
--- En este caso, al ser tablas predefinidas de snowflake, da poco juego (no se deben poder hacer inserts a esa BBDD)
-
+{{config(tags=['mart'])}}
 with orders as (
-    select * from {{ ref('clean_orders') }}
+    select * from {{ ref('clean_orders')}}
 ),
 
 line_items as (

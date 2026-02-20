@@ -1,3 +1,4 @@
+{{config(tags=['mart'])}}
 with part_suppliers as (
     select * from {{ ref('clean_partsupp') }}
 ),

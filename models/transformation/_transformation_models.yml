@@ -1,0 +1,69 @@
+version: 2
+
+models:
+  - name: clean_customers
+    description: "{{ doc('clean_customers') }}"
+    columns:
+      - name: customer_id
+      - name: phone_number
+      - name: account_balance
+      - name: market_segment
+      - name: nation_id
+
+  - name: clean_lineitem
+    description: "{{ doc('clean_lineitem') }}"
+    columns:
+      - name: lineitem_id
+      - name: order_id
+      - name: part_id
+      - name: supplier_id
+      - name: return_flag
+      - name: net_item_sales_amount
+      - name: quantity
+      - name: ship_date_key
+
+  - name: clean_orders
+    description: "{{ doc('clean_orders') }}"
+    columns:
+      - name: customer_id
+      - name: order_id
+      - name: order_status
+      - name: clerk_id
+      - name: order_date_key
+
+  - name: clean_parts
+    description: "{{ doc('clean_parts') }}"
+    columns:
+      - name: part_id
+      - name: part_name
+      - name: manufacturer_num
+      - name: brand_num
+      - name: part_type
+      - name: part_size
+      - name: container_type
+      - name: retail_price
+
+  - name: clean_partsupp
+    description: "{{ doc('clean_partsupp') }}"
+    columns:
+      - name: part_id
+      - name: supplier_id
+      - name: available_quantity
+      - name: unit_cost
+      - name: total_stock_value
+
+  - name: clean_supplier
+    description: "{{ doc('clean_supplier') }}"
+    columns:
+      - name: supplier_id
+      - name: supplier_name
+      - name: phone_number
+      - name: account_balance
+      - name: nation_id
+
+  - name: nation_region
+    description: "{{ doc('nation_region') }}"
+    columns:
+      - name: nation_id
+      - name: nation_name
+      - name: region_name

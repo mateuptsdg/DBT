@@ -1,4 +1,6 @@
-{{ config(materialized='table') }}
+{{ config(materialized='table', 
+    tags=['mart']) 
+    }}
 
 with customers as (
     select * from {{ ref('clean_customers') }}

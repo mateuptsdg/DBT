@@ -1,7 +1,7 @@
+{{config(tags=['transformation'])}}
 with orders as (
     select * from {{ ref('stg_tpch__orders') }}
 ),
--- Meter mas columnas aqui y fuiltarrlas que no pasen a marts?
 final as (
     select
         o.customer_id,

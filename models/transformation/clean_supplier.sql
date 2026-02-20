@@ -1,3 +1,4 @@
+{{config(tags=['transformation'])}}
 with suppliers as (
     select * from {{ ref('stg_tpch__supplier') }}
 ),

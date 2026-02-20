@@ -1,3 +1,4 @@
+{{config(tags=['staging'])}}
 with source as (
 
     select * from {{ source('tpch_sample', 'part') }}
@@ -7,10 +8,7 @@ with source as (
 renamed as (
 
     select
-        -- Llave Primaria
         p_partkey as part_id,
-
-        -- Atributos de la Pieza
         p_name as part_name,
         p_mfgr as manufacturer_name,
         p_brand as brand_name,

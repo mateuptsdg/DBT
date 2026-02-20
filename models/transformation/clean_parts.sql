@@ -1,3 +1,4 @@
+{{config(tags=['transformation'])}}
 with parts as (
     select * from {{ ref('stg_tpch__part') }}
 ),

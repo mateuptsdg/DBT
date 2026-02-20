@@ -6,7 +6,8 @@
       unique_key='s_suppkey',
       strategy='check',
       check_cols=['s_address', 's_phone', 's_acctbal','s_nationkey'],
-      invalidate_hard_deletes=True
+      invalidate_hard_deletes=True,
+      tags=['staging']
     )
 }}
 

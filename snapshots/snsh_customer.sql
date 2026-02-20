@@ -1,5 +1,5 @@
 {% snapshot snsh_customer %}
-
+{{config(tags=['staging'])}}
 {{
     config(
       target_database=target.database,
