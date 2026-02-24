@@ -29,7 +29,7 @@ jobs:
           DBT_ACCOUNT_ID: ${{ secrets.DBT_ACCOUNT_ID }}
           # Usamos un Job específico de CI configurado en dbt Cloud
           # Si no tienes uno, puedes usar el de QA pero con steps_override
-          DBT_JOB_ID: ${{ secrets.DBT_JOB_ID_QA }} 
+          DBT_JOB_ID: ${{ secrets.DBT_JOB_ID_CI_MERGE }} 
         run: |
           # Este script dispara el job y espera a que termine
           # Importante: En CI idealmente usamos "dbt build --select state:modified+"
