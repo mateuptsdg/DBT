@@ -33,7 +33,7 @@ jobs:
           DBT_ACCOUNT_ID: ${{ secrets.DBT_ACCOUNT_ID }}
           DBT_JOB_ID: ${{ secrets.DBT_JOB_ID_CD }}
         run: |
-          echo "🚀 Desplegando rama QA al entorno de Calidad..."
+          echo "Desplegando rama QA al entorno de Calidad..."
           python scripts/orchestrator.py --job_id $DBT_JOB_ID --message "Deploy QA - Commit ${{ github.sha }}"
 
       - name: Desplegar a PROD
@@ -43,5 +43,5 @@ jobs:
           DBT_ACCOUNT_ID: ${{ secrets.DBT_ACCOUNT_ID }}
           DBT_JOB_ID: ${{ secrets.DBT_JOB_ID_PROD }}
         run: |
-          echo "🚀 Desplegando rama MAIN al entorno de Producción..."
+          echo "Desplegando rama MAIN al entorno de Producción..."
           python scripts/orchestrator.py --job_id $DBT_JOB_ID --message "Deploy PROD - Commit ${{ github.sha }}"
