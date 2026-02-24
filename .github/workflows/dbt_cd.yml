@@ -1,0 +1,47 @@
+name: dbt CD (Despliegue Continuo)
+
+on:
+  push:
+    branches:
+      - qa    # Despliegue a QA
+      - main  # Despliegue a Producción
+
+jobs:
+  deploy:
+    name: Desplegar a dbt Cloud
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Instalar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      
+      - name: Instalar dependencias
+        run: pip install requests
+
+      # ESTRATEGIA DE RAMIFICACIÓN (Branching Strategy)
+      # Determinamos qué Job ID usar según la rama donde se hizo el push
+      
+      - name: Desplegar a QA
+        if: github.ref == 'refs/heads/qa'
+        env:
+          DBT_API_TOKEN: ${{ secrets.DBT_API_TOKEN }}
+          DBT_ACCOUNT_ID: ${{ secrets.DBT_ACCOUNT_ID }}
+          DBT_JOB_ID: ${{ secrets.DBT_JOB_ID_QA }}
+        run: |
+          echo "🚀 Desplegando rama QA al entorno de Calidad..."
+          python scripts/orchestrator.py --job_id $DBT_JOB_ID --message "Deploy QA - Commit ${{ github.sha }}"
+
+      - name: Desplegar a PROD
+        if: github.ref == 'refs/heads/main'
+        env:
+          DBT_API_TOKEN: ${{ secrets.DBT_API_TOKEN }}
+          DBT_ACCOUNT_ID: ${{ secrets.DBT_ACCOUNT_ID }}
+          DBT_JOB_ID: ${{ secrets.DBT_JOB_ID_PROD }}
+        run: |
+          echo "🚀 Desplegando rama MAIN al entorno de Producción..."
+          python scripts/orchestrator.py --job_id $DBT_JOB_ID --message "Deploy PROD - Commit ${{ github.sha }}"
