@@ -1,0 +1,25 @@
+name: Orquestación Diaria (Incremental)
+
+on:
+  schedule:
+    # Lunes a Sábado a las 06:00 AM UTC
+    - cron: '0 6 * * 1-6'
+  workflow_dispatch:
+
+jobs:
+  daily_chain:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - run: pip install requests
+
+      # SOLO DISPARAMOS LA PRIMERA FICHA (SOURCES)
+      - name: Iniciar Cadena Diaria (Source Daily)
+        env:
+          DBT_API_TOKEN: ${{ secrets.DBT_API_TOKEN }}
+          DBT_ACCOUNT_ID: ${{ secrets.DBT_ACCOUNT_ID }}
+          DBT_JOB_ID: ${{ secrets.DBT_JOB_SOURCE_DAILY }}
+        run: python scripts/orchestrator.py --job_id $DBT_JOB_ID --message "Daily Chain Started via GitHub"
