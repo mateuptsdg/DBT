@@ -1,0 +1,14 @@
+version: 2
+
+tests:
+  - name: assert_order_total_reconciliation
+    description: '{{ doc("doc_assert_order_total_reconciliation") }}'
+
+  - name: assert_shipping_logic
+    description: '{{ doc("doc_assert_shipping_logic") }}'
+
+  - name: assert_unit_price_consistency
+    description: '{{ doc("doc_assert_unit_price_consistency") }}'
+
+  - name: assert_valid_quantity
+    description: '{{ doc("doc_assert_valid_quantity") }}'
