@@ -1,4 +1,4 @@
-
+{{config(tags=['transformation'])}}
 with customers as (
     select * from {{ ref('stg_tpch__customer') }}
 ),

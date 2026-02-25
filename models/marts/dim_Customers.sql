@@ -1,10 +1,11 @@
-{{ config(materialized='table') }}
+{{ config(materialized='table', 
+    tags=['mart']) 
+    }}
 
 with customers as (
     select * from {{ ref('clean_customers') }}
 ),
 
--- Reemplazamos 'nations' y 'regions' por tu modelo intermedio unificado
 locations as (
     select * from {{ ref('nation_region') }}
 ),

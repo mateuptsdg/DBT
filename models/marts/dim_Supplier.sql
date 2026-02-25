@@ -1,9 +1,8 @@
-{{ config(materialized='table') }}
+{{ config(materialized='table', tags=['mart'])}}
 
 with suppliers as (
     select * from {{ ref('clean_supplier') }}
 ),
--- En lugar de llamar a nation y region por separado, llamamos a tu modelo intermedio
 locations as (
     select * from {{ ref('nation_region') }} 
 ),

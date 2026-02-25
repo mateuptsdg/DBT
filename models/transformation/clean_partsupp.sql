@@ -1,3 +1,4 @@
+{{config(tags=['transformation'])}}
 with part_suppliers as (
     select * from {{ ref('stg_tpch__partsupp') }}
 ),
@@ -8,7 +9,6 @@ final as (
         ps.supplier_id,
         ps.available_quantity as available_quantity,
         ps.supply_cost as unit_cost,
-        -- Métrica CalculadA
         (ps.available_quantity * ps.supply_cost) as total_stock_value
 
     from part_suppliers ps

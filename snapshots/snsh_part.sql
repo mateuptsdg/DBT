@@ -1,4 +1,17 @@
-{{config(tags=['staging'])}}
+{% snapshot snsh_part %}
+
+{{
+    config(
+      target_database=target.database,
+      target_schema='snapshots',
+      unique_key='part_id',
+      strategy='check',
+      check_cols=['retail_price', 'container_type', 'part_size'],
+      invalidate_hard_deletes=True,
+      tags=['staging']
+    )
+}}
+
 with source as (
 
     select * from {{ source('tpch_sample', 'part') }}
@@ -17,9 +30,11 @@ renamed as (
         p_container as container_type,
         p_retailprice as retail_price,
         p_comment as comment
-
     from source
 
 )
 
 select * from renamed
+
+{% endsnapshot %}
+

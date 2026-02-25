@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: fact_Order    
-    description: "Tabla de hechos que contiene una línea por cada ítem vendido."
+    description: '{{doc("fact_Order")}}'
     columns:
       - name: lineitem_id
         description: "Llave primaria técnica (Hash de order_id + line_number)."
@@ -15,7 +15,7 @@ models:
         tests:
           - not_null
           - relationships:
-              arguments: # Añadido para corregir la sintaxis
+              arguments:
                 to: ref('dim_Customers')
                 field: customer_id
 
@@ -23,7 +23,7 @@ models:
         tests:
           - not_null
           - relationships:
-              arguments: # Añadido para corregir la sintaxis
+              arguments:
                 to: ref('dim_Parts')
                 field: part_id
 
@@ -33,7 +33,7 @@ models:
           - is_positive
 
   - name: fact_Stock
-    description: "Balance de inventario por cada combinación de parte y proveedor."
+    description: '{{doc("fact_Stock")}}'
     columns:
       - name: stock_item_key
         description: "Llave primaria (Hash de part_id + supplier_id)."
@@ -44,7 +44,7 @@ models:
       - name: part_id
         tests:
           - relationships:
-              arguments: # Añadido para corregir la sintaxis
+              arguments: 
                 to: ref('dim_Parts')
                 field: part_id
 
@@ -57,3 +57,44 @@ models:
         description: "Valor monetario del stock (Qty * Cost)."
         tests:
           - is_positive
+
+  - name: dim_Customers
+    description: "{{ doc('dim_Customers') }}"
+    columns:
+      - name: customer_id
+      - name: phone_number
+      - name: account_balance
+      - name: market_segment
+      - name: nation_name
+      - name: region_name
+
+  - name: dim_Date
+    description: "{{ doc('dim_Date') }}"
+    columns:
+      - name: date_key
+      - name: full_date
+      - name: day_of_month
+      - name: month_number
+      - name: year_number
+
+  - name: dim_Parts
+    description: "{{ doc('dim_Parts') }}"
+    columns:
+      - name: part_id
+      - name: part_name
+      - name: manufacturer_num
+      - name: brand_num
+      - name: part_type
+      - name: part_size
+      - name: container_type
+      - name: retail_price
+
+  - name: dim_Supplier
+    description: "{{ doc('dim_Supplier') }}"
+    columns:
+      - name: supplier_id
+      - name: supplier_name
+      - name: phone_number
+      - name: account_balance
+      - name: supplier_nation
+      - name: supplier_region

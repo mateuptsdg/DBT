@@ -1,3 +1,4 @@
+{{config(tags=['staging'])}}
 with source as (
 
     select * from {{ source('tpch_sample', 'region') }}
@@ -7,10 +8,7 @@ with source as (
 renamed as (
 
     select
-        -- Llave Primaria
         r_regionkey as region_id,
-
-        -- Atributos
         r_name as region_name,
         r_comment as comment
 

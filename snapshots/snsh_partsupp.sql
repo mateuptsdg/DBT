@@ -1,4 +1,17 @@
-{{config(tags=['staging'])}}
+{% snapshot snsh_partsupp %}
+
+{{
+    config(
+      target_database=target.database,
+      target_schema='snapshots',
+      unique_key='partsupp_id',
+      strategy='check',
+      check_cols=['available_quantity', 'supply_cost'],
+      invalidate_hard_deletes=True,
+      tags=['staging']
+    )
+}}
+
 with source as (
 
     select * from {{ source('tpch_sample', 'partsupp') }}
@@ -20,3 +33,5 @@ renamed as (
 )
 
 select * from renamed
+
+{% endsnapshot %}
