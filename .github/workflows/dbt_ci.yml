@@ -25,8 +25,8 @@ jobs:
 
       - name: Ejecutar CI en dbt Cloud
         env:
-          DBT_API_TOKEN: ${{ secrets.TOKEN_VALUE }}
-          DBT_ACCOUNT_ID: ${{ secrets.TOKEN_NAME }}
+          DBT_API_TOKEN: ${{ secrets.TOKEN_VALUE}}
+          DBT_ACCOUNT_ID: ${{ secrets.PROJECT_ID }}
           # Usamos un Job específico de CI configurado en dbt Cloud
           # Si no tienes uno, puedes usar el de QA pero con steps_override
           DBT_JOB_ID: ${{ secrets.DBT_JOB_ID_CI_MERGE }} 
