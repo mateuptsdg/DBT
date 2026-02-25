@@ -1,0 +1,64 @@
+version: 2
+
+macros:
+  # --- Utility Macros ---
+  - name: generate_schema_name
+    description: '{{ doc("doc_generate_schema_name") }}'
+    arguments:
+      - name: custom_schema_name
+        description: "El nombre del esquema deseado (si aplica)."
+      - name: node
+        description: "El nodo del grafo de dbt que se está ejecutando."
+
+  - name: pricing
+    description: '{{ doc("doc_pricing") }}'
+    arguments:
+      - name: column_name
+        description: "Columna de precio base a transformar."
+
+  - name: remove_prefix
+    description: '{{ doc("doc_remove_prefix") }}'
+    arguments:
+      - name: string_text
+        description: "El texto al cual se le quitará el prefijo."
+
+  - name: to_date_key
+    description: '{{ doc("doc_to_date_key") }}'
+    arguments:
+      - name: date_column
+        description: "La columna de fecha a transformar."
+
+  # --- Generic Tests ---
+  
+  - name: test_is_not_future
+    description: '{{ doc("doc_test_is_not_future") }}'
+    arguments:
+      - name: model
+        description: "El modelo que se está testeando."
+      - name: column_name
+        description: "La columna de fecha."
+
+  - name: test_is_positive
+    description: '{{ doc("doc_test_is_positive") }}'
+    arguments:
+      - name: model
+        description: "El modelo que se está testeando."
+      - name: column_name
+        description: "La columna numérica."
+  
+  - name: create_audit_log_table
+    description: "{{ doc('macro_create_audit_log_table') }}"
+    arguments:
+      - name: audit_schema
+        type: string
+        description: Esquema de destino para los logs.
+      - name: audit_table
+        type: string
+        description: Nombre de la tabla de auditoría.
+
+  - name: log_run_results
+    description: "{{ doc('macro_log_run_results') }}"
+    arguments:
+      - name: results
+        type: object
+        description: Objeto de resultados generado por dbt al finalizar la ejecución.

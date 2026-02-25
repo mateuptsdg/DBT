@@ -1,0 +1,8 @@
+version: 2
+
+tests:
+  - name: assert_positive_pricing
+    description: '{{ doc("doc_assert_positive_pricing") }}'
+
+  - name: assert_profit
+    description: '{{ doc("doc_assert_profit") }}'
