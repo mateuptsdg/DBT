@@ -23,7 +23,13 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
 
+on-run-start:
+  - "SET timezone = 'UTC';"
+  - "ALTER SESSION SET QUERY_TAG = 'dbt_transformation_run';"
+  - "{{ create_audit_log_table() }}"
 
+on-run-end:
+  - "{{ log_run_results(results) }}"
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 
