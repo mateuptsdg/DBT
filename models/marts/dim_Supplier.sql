@@ -4,7 +4,7 @@ with suppliers as (
     select * from {{ ref('int_supplier_cleansed') }}
 ),
 locations as (
-    select * from {{ ref('nation_region') }} 
+    select * from {{ ref('int_nation_region') }} 
 ),
 
 final as (
