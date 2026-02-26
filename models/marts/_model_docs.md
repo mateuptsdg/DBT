@@ -1,4 +1,4 @@
-{% docs fact_Order %}
+{% docs fct_order %}
 **Tabla de Hechos de Pedidos (Ventas)**
 
 Esta es la tabla de hechos principal para el análisis de ventas y transacciones.
@@ -10,7 +10,7 @@ Esta es la tabla de hechos principal para el análisis de ventas y transacciones
 - **Carga Incremental:** Configurada para procesar únicamente nuevos registros basados en la fecha de envío para optimizar el rendimiento.
 {% enddocs %}
 
-{% docs fact_Stock %}
+{% docs fct_stock %}
 **Tabla de Hechos de Inventario (Stock)**
 
 Esta tabla proporciona una visión consolidada del inventario actual por producto y proveedor.
@@ -20,7 +20,7 @@ Esta tabla proporciona una visión consolidada del inventario actual por product
 - **Métricas de Valor:** Mantiene el `total_stock_value` calculado para análisis de activos circulantes y valoración de almacén.
 {% enddocs %}
 
-{% docs dim_Supplier %}
+{% docs dim_supplier %}
 **Dimensión de Proveedores (Enriquecida)**
 
 Esta tabla consolida la información de los proveedores con su contexto geográfico completo.
@@ -30,7 +30,7 @@ Esta tabla consolida la información de los proveedores con su contexto geográf
 - **Propósito:** Facilitar el análisis de rendimiento de proveedores por región geográfica y la gestión de saldos de cuenta (`account_balance`).
 {% enddocs %}
 
-{% docs dim_Parts %}
+{% docs dim_parts %}
 **Dimensión de Partes (Productos)**
 
 Tabla maestra que contiene el catálogo de productos o partes.
@@ -39,7 +39,7 @@ Tabla maestra que contiene el catálogo de productos o partes.
 - **Categorización:** Incluye dimensiones críticas como `part_type` y `container_type` para análisis de logística y segmentación de inventario.
 {% enddocs %}
 
-{% docs dim_Date %}
+{% docs dim_date %}
 **Dimensión de Tiempo (Calendario)**
 
 Tabla generada estáticamente para facilitar el análisis temporal en el Data Warehouse.
@@ -49,7 +49,7 @@ Tabla generada estáticamente para facilitar el análisis temporal en el Data Wa
 - **Atributos Temporales:** Extrae componentes básicos (día, mes, año) para evitar cálculos costosos en las herramientas de visualización.
 {% enddocs %}
 
-{% docs dim_Customers %}
+{% docs dim_customers %}
 **Dimensión de Clientes (Enriquecida)**
 
 Esta tabla representa la entidad final de clientes para negocio. 

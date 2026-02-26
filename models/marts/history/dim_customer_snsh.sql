@@ -4,7 +4,7 @@ with customers_snapshot as (
     select * from {{ ref('snsh_customer') }}
 ),
 locations as (
-    select * from {{ ref('nation_region') }}
+    select * from {{ ref('int_nation_region') }}
 ),
 
 final as (

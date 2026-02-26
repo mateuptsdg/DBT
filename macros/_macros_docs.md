@@ -5,7 +5,7 @@ Lógica personalizada para la generación de esquemas en dbt.
 Controla si los modelos se crean en el esquema target por defecto o en un esquema personalizado 
 {% enddocs %}
 
-{% docs doc_pricing %}
+{% docs doc_calculate_net_amount %}
 Macro de cálculo de precios.
 Estandariza la lógica de negocio para calcular precios finales, 
 aplicando descuentos e impuestos.

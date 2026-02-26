@@ -10,8 +10,8 @@ macros:
       - name: node
         description: "El nodo del grafo de dbt que se está ejecutando."
 
-  - name: pricing
-    description: '{{ doc("doc_pricing") }}'
+  - name: calculate_net_amount
+    description: '{{ doc("doc_calculate_net_amount") }}'
     arguments:
       - name: column_name
         description: "Columna de precio base a transformar."

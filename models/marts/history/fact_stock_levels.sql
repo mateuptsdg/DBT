@@ -5,11 +5,11 @@ with part_suppliers_snapshot as (
 ),
 
 parts as (
-    select * from {{ ref('dim_Parts_snsh') }}
+    select * from {{ ref('dim_parts_snsh') }}
 ),
 
 suppliers as (
-    select * from {{ ref('dim_Supplier_snsh') }}
+    select * from {{ ref('dim_supplier_snsh') }}
 ),
 
 final as (

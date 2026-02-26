@@ -7,7 +7,7 @@
 with calculated_amounts as (
     select
         net_item_sales_amount
-    from {{ ref("fact_Order") }}
+    from {{ ref("fct_order") }}
 )
 
 select *

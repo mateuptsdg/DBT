@@ -48,7 +48,7 @@ models:
       +grants: 
         select: ['DBT_TRANSFORMER_ROLE']
         
-    transformation:           
+    intermediate:           
       +materialized: view 
       +tags: ["transforming"]
       +grants:
