@@ -1,4 +1,4 @@
-{% snapshot snsh_partsupp %}
+{% snapshot snp_partsupp %}
 
 {{
     config(
