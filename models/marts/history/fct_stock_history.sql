@@ -1,15 +1,15 @@
 {{ config(materialized='table') }}
 
 with part_suppliers_snapshot as (
-    select * from {{ ref('snsh_partsupp') }}
+    select * from {{ ref('snp_partsupp') }}
 ),
 
 parts as (
-    select * from {{ ref('dim_parts_snsh') }}
+    select * from {{ ref('dim_parts_history') }}
 ),
 
 suppliers as (
-    select * from {{ ref('dim_supplier_snsh') }}
+    select * from {{ ref('dim_supplier_history') }}
 ),
 
 final as (

@@ -1,7 +1,7 @@
 {{ config(materialized='table') }}
 
 with customers_snapshot as (
-    select * from {{ ref('snsh_customer') }}
+    select * from {{ ref('snp_customer') }}
 ),
 locations as (
     select * from {{ ref('int_nation_region') }}

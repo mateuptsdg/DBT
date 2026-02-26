@@ -1,7 +1,7 @@
 {{ config(materialized='table') }}
 
 with suppliers_snapshot as (
-    select * from {{ ref('snsh_supplier') }} 
+    select * from {{ ref('snp_supplier') }} 
 ),
 
 locations as (
