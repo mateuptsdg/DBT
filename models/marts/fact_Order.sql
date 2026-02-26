@@ -1,10 +1,10 @@
 {{config(tags=['mart'])}}
 with orders as (
-    select * from {{ ref('clean_orders')}}
+    select * from {{ ref('int_orders_cleansed')}}
 ),
 
 line_items as (
-    select * from {{ ref('clean_lineitem') }}
+    select * from {{ ref('int_lineitem_cleansed') }}
     
     {% if is_incremental() %}
     where ship_date > (select max(ship_date) from {{ this }})
