@@ -1,37 +1,26 @@
-name: dbt CI (Validación de Pull Request)
+name: dbt CI (Validación)
 
 on:
   pull_request:
-    branches:
-      - qa
-      - main
+    branches: [qa, main]
 
 jobs:
-  dbt_ci_check:
-    name: Verificar Cambios (CI)
+  slim_ci:
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout del código
-        uses: actions/checkout@v3
-
-      - name: Instalar Python
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.9'
+      - run: pip install requests
 
-      - name: Instalar dependencias
-        run: pip install requests
-
-      - name: Ejecutar CI en dbt Cloud
+      - name: Ejecutar Slim CI
         env:
-          DBT_API_TOKEN: ${{ secrets.DBT_API_TOKEN}}
+          DBT_API_TOKEN: ${{ secrets.DBT_API_TOKEN }}
           DBT_ACCOUNT_ID: ${{ secrets.DBT_ACCOUNT_ID }}
-          # Usamos un Job específico de CI configurado en dbt Cloud
-          # Si no tienes uno, puedes usar el de QA pero con steps_override
-          DBT_JOB_ID: ${{ secrets.DBT_JOB_ID_CI_MERGE }} 
+          DBT_JOB_ID: ${{ secrets.DBT_JOB_ID_CI }}
         run: |
           python scripts/orchestrator.py \
-            --job_id ${{ secrets.DBT_JOB_ID_CI }} \
+            --job_id $DBT_JOB_ID \
             --message "CI PR #${{ github.event.number }}" \
             --steps "dbt build --select state:modified+"
