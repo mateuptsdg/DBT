@@ -3,13 +3,16 @@ version: 2
 models:
   - name: fct_order
     description: '{{ doc("fct_order") }}'
+    latest_version: 1
+    versions:
+      - v: 1
+        defined_in: fct_order_v1
     columns:
       - name: lineitem_id
         description: "Llave primaria técnica (Hash de order_id + line_number)."
         tests:
           - not_null
           - unique
-
       - name: customer_id
         description: "FK que conecta con la dimensión de clientes."
         tests:
@@ -18,7 +21,6 @@ models:
               arguments:
                 to: ref('dim_customers')
                 field: customer_id
-
       - name: part_id
         tests:
           - not_null
@@ -26,7 +28,6 @@ models:
               arguments:
                 to: ref('dim_parts')
                 field: part_id
-
       - name: net_item_sales_amount
         description: "Monto neto tras descuentos e impuestos."
         tests:
@@ -34,25 +35,26 @@ models:
 
   - name: fct_stock
     description: '{{ doc("fct_stock") }}'
+    latest_version: 1 
+    versions:
+      - v: 1
+        defined_in: fct_stock_v1
     columns:
       - name: stock_item_key
         description: "Llave primaria (Hash de part_id + supplier_id)."
         tests:
           - unique
           - not_null
-      
       - name: part_id
         tests:
           - relationships:
               arguments: 
                 to: ref('dim_parts')
                 field: part_id
-
       - name: available_quantity
         description: "Cantidad de unidades actualmente en stock."
         tests:
           - is_positive 
-
       - name: total_stock_value
         description: "Valor monetario del stock (Qty * Cost)."
         tests:
@@ -60,6 +62,12 @@ models:
 
   - name: dim_customers
     description: "{{ doc('dim_customers') }}"
+    latest_version: 2
+    versions:
+      - v: 1
+        defined_in: dim_customers_v1
+      - v: 2
+        defined_in: dim_customers_v2
     columns:
       - name: customer_id
       - name: phone_number
@@ -70,6 +78,10 @@ models:
 
   - name: dim_date
     description: "{{ doc('dim_date') }}"
+    latest_version: 1
+    versions:
+      - v: 1
+        defined_in: dim_date_v1
     columns:
       - name: date_key
       - name: full_date
@@ -79,6 +91,10 @@ models:
 
   - name: dim_parts
     description: "{{ doc('dim_parts') }}"
+    latest_version: 1
+    versions:
+      - v: 1
+        defined_in: dim_parts_v1
     columns:
       - name: part_id
       - name: part_name
@@ -91,6 +107,10 @@ models:
 
   - name: dim_supplier
     description: "{{ doc('dim_supplier') }}"
+    latest_version: 1
+    versions:
+      - v: 1
+        defined_in: dim_supplier_v1
     columns:
       - name: supplier_id
       - name: supplier_name
