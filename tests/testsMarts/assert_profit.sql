@@ -7,7 +7,7 @@ with sales as (
         part_id,
         supplier_id,
         (net_item_sales_amount / quantity) as effective_unit_sales_price
-    from {{ ref('fact_Order') }} 
+    from {{ ref('fct_order') }} 
 ),
 
 stock as (
@@ -15,7 +15,7 @@ stock as (
         part_id,
         supplier_id,
         unit_cost
-    from {{ ref('fact_Stock') }} 
+    from {{ ref('fct_stock') }} 
 ),
 
 margin_errors as (

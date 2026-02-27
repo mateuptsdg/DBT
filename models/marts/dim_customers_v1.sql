@@ -3,11 +3,11 @@
     }}
 
 with customers as (
-    select * from {{ ref('clean_customers') }}
+    select * from {{ ref('int_customers_cleansed') }}
 ),
 
 locations as (
-    select * from {{ ref('nation_region') }}
+    select * from {{ ref('int_nation_region') }}
 ),
 
 final as (

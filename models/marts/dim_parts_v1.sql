@@ -1,6 +1,6 @@
 {{config(tags=['mart'])}}
 with parts as (
-    select * from {{ ref('clean_parts') }}
+    select * from {{ ref('int_parts_cleansed') }}
 ),
 
 final as (

@@ -1,4 +1,4 @@
-{% snapshot snsh_customer %}
+{% snapshot snp_customer %}
 {{config(tags=['staging'])}}
 {{
     config(

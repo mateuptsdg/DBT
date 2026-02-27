@@ -1,11 +1,11 @@
 {{ config(materialized='table') }}
 
 with suppliers_snapshot as (
-    select * from {{ ref('snsh_supplier') }} 
+    select * from {{ ref('snp_supplier') }} 
 ),
 
 locations as (
-    select * from {{ ref('nation_region') }}
+    select * from {{ ref('int_nation_region') }}
 ),
 
 final as (

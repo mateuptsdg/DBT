@@ -1,4 +1,4 @@
-{% snapshot snsh_supplier %}
+{% snapshot snp_supplier %}
 
 {{
     config(

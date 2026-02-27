@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: dim_customer_history
+    description: "{{ doc('dim_customers_history') }}"
+    columns:
+      - name: customer_key
+        tests: [unique, not_null]
+      - name: customer_id
+        tests: [not_null]
+      - name: is_current
+        description: "{{ doc('scd_is_current') }}"
+
+  - name: dim_parts_history
+    description: "{{ doc('dim_parts_history') }}"
+    columns:
+      - name: part_key
+        tests: [unique, not_null]
+      - name: part_id
+        tests: [not_null]
+      - name: is_current_record
+        description: "{{ doc('scd_is_current') }}"
+
+  - name: dim_supplier_history
+    description: "{{ doc('dim_suppliers_history') }}"
+    columns:
+      - name: supplier_key
+        tests: [unique, not_null]
+      - name: supplier_id
+        tests: [not_null]
+      - name: is_current
+        description: "{{ doc('scd_is_current') }}"
+
+  - name: fct_stock_history
+    description: "{{ doc('fct_stock_history') }}"
+    columns:
+      - name: stock_item_key
+        tests: [not_null]
+      - name: is_active_stock
+        description: "{{ doc('scd_is_current') }}"
