@@ -31,6 +31,7 @@ jobs:
           # Si no tienes uno, puedes usar el de QA pero con steps_override
           DBT_JOB_ID: ${{ secrets.DBT_JOB_ID_CI_MERGE }} 
         run: |
-          # Este script dispara el job y espera a que termine
-          # Importante: En CI idealmente usamos "dbt build --select state:modified+"
-          python scripts/orchestrator.py --job_id $DBT_JOB_ID --message "CI Check PR #${{ github.event.number }}"
+          python scripts/orchestrator.py \
+            --job_id ${{ secrets.DBT_JOB_ID_CI }} \
+            --message "CI PR #${{ github.event.number }}" \
+            --steps "dbt build --select state:modified+"
