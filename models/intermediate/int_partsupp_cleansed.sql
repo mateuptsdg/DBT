@@ -5,6 +5,7 @@ with part_suppliers as (
 
 final as (
     select
+        ps.partsupp_id,
         ps.part_id,
         ps.supplier_id,
         ps.available_quantity as available_quantity,

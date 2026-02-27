@@ -1,0 +1,26 @@
+version: 2
+
+snapshots:
+  - name: snp_customer
+    description: "{{ doc('snp_customers') }}"
+    columns:
+      - name: dbt_scd_id
+        tests: [unique, not_null]
+
+  - name: snp_part
+    description: "{{ doc('snp_parts') }}"
+    columns:
+      - name: dbt_scd_id
+        tests: [unique, not_null]
+
+  - name: snp_partsupp
+    description: "{{ doc('snp_partsupp') }}"
+    columns:
+      - name: dbt_scd_id
+        tests: [unique, not_null]
+
+  - name: snp_supplier
+    description: "{{ doc('snp_suppliers') }}"
+    columns:
+      - name: dbt_scd_id
+        tests: [unique, not_null]

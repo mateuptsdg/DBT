@@ -1,19 +1,25 @@
 version: 2
 
 models:
-  - name: clean_customers
-    description: "{{ doc('clean_customers') }}"
+  - name: int_customers_cleansed
+    description: "{{ doc('int_customers_cleansed') }}"
     columns:
       - name: customer_id
+        tests:
+          - unique
+          - not_null
       - name: phone_number
       - name: account_balance
       - name: market_segment
       - name: nation_id
 
-  - name: clean_lineitem
-    description: "{{ doc('clean_lineitem') }}"
+  - name: int_lineitem_cleansed
+    description: "{{ doc('int_lineitem_cleansed') }}"
     columns:
       - name: lineitem_id
+        tests:
+          - unique
+          - not_null
       - name: order_id
       - name: part_id
       - name: supplier_id
@@ -22,19 +28,25 @@ models:
       - name: quantity
       - name: ship_date_key
 
-  - name: clean_orders
-    description: "{{ doc('clean_orders') }}"
+  - name: int_orders_cleansed
+    description: "{{ doc('int_orders_cleansed') }}"
     columns:
       - name: customer_id
       - name: order_id
+        tests:
+          - unique
+          - not_null
       - name: order_status
       - name: clerk_id
       - name: order_date_key
 
-  - name: clean_parts
-    description: "{{ doc('clean_parts') }}"
+  - name: int_parts_cleansed
+    description: "{{ doc('int_parts_cleansed') }}"
     columns:
       - name: part_id
+        tests:
+          - unique
+          - not_null
       - name: part_name
       - name: manufacturer_num
       - name: brand_num
@@ -43,27 +55,42 @@ models:
       - name: container_type
       - name: retail_price
 
-  - name: clean_partsupp
-    description: "{{ doc('clean_partsupp') }}"
+  - name: int_partsupp_cleansed
+    description: "{{ doc('int_partsupp_cleansed') }}"
     columns:
+      # AHORA SÍ: Testeamos la PK real gracias a tu cambio en el SQL
+      - name: partsupp_id
+        tests:
+          - unique
+          - not_null
       - name: part_id
+        tests:
+          - not_null
       - name: supplier_id
+        tests:
+          - not_null
       - name: available_quantity
       - name: unit_cost
       - name: total_stock_value
 
-  - name: clean_supplier
-    description: "{{ doc('clean_supplier') }}"
+  - name: int_supplier_cleansed
+    description: "{{ doc('int_supplier_cleansed') }}"
     columns:
       - name: supplier_id
+        tests:
+          - unique
+          - not_null
       - name: supplier_name
       - name: phone_number
       - name: account_balance
       - name: nation_id
 
-  - name: nation_region
-    description: "{{ doc('nation_region') }}"
+  - name: int_nation_region
+    description: "{{ doc('int_nation_region') }}"
     columns:
       - name: nation_id
+        tests:
+          - unique
+          - not_null
       - name: nation_name
       - name: region_name

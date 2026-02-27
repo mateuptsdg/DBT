@@ -1,4 +1,4 @@
-{% docs clean_customers %}
+{% docs int_customers_cleansed %}
 **Tabla de Clientes Limpia**
 
 Esta tabla contiene la información base de los clientes. 
@@ -7,7 +7,7 @@ Esta tabla contiene la información base de los clientes.
 - **Normalización:** Se mantienen las claves foráneas como `nation_id` para permitir la integración con modelos geográficos.
 {% enddocs %}
 
-{% docs clean_lineitem %}
+{% docs int_lineitem_cleansed %}
 **Tabla de Detalles de Pedidos (Line Items)**
 
 Contiene el detalle granular de cada línea de pedido.
@@ -17,7 +17,7 @@ Contiene el detalle granular de cada línea de pedido.
 - **Lógica Incremental:** Incluye filtrado incremental para procesar solo registros nuevos basados en la `ship_date`.
 {% enddocs %}
 
-{% docs clean_orders %}
+{% docs int_orders_cleansed %}
 **Tabla de Cabecera de Pedidos**
 
 Representa la información a nivel de pedido (orden).
@@ -27,7 +27,7 @@ Representa la información a nivel de pedido (orden).
 - **Generación de Claves de Fecha:** Transformación de la fecha de pedido en `order_date_key` para modelado dimensional.
 {% enddocs %}
 
-{% docs clean_parts %}
+{% docs int_parts_cleansed %}
 **Tabla Maestra de Productos/Partes**
 
 Catálogo de partes y productos disponibles.
@@ -36,7 +36,7 @@ Catálogo de partes y productos disponibles.
 - **Renombrado:** Selección y estandarización de nombres de columnas para tipos y contenedores.
 {% enddocs %}
 
-{% docs clean_partsupp %}
+{% docs int_partsupp_cleansed %}
 **Tabla de Relación Parte-Proveedor**
 
 Tabla intermedia que conecta productos con sus proveedores y disponibilidad.
@@ -45,7 +45,7 @@ Tabla intermedia que conecta productos con sus proveedores y disponibilidad.
 - **Renombrado Semántico:** Se renombra `supply_cost` a `unit_cost` para reflejar mejor que es el costo por unidad.
 {% enddocs %}
 
-{% docs clean_supplier %}
+{% docs int_supplier_cleansed %}
 **Tabla de Proveedores**
 
 Directorio de proveedores registrados.
@@ -54,7 +54,7 @@ Directorio de proveedores registrados.
 - **Selección:** Filtrado de atributos clave como teléfono y saldo de cuenta.
 {% enddocs %}
 
-{% docs nation_region %}
+{% docs int_nation_region %}
 **Dimensión Geográfica (Nación y Región)**
 
 Vista desnormalizada que combina información de naciones y regiones.

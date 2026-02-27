@@ -1,10 +1,10 @@
 {{config(tags=['mart'])}}
 with part_suppliers as (
-    select * from {{ ref('clean_partsupp') }}
+    select * from {{ ref('int_partsupp_cleansed') }}
 ),
 
 parts as (
-    select * from {{ ref('clean_parts') }}
+    select * from {{ ref('int_parts_cleansed') }}
 ),
 
 final as (

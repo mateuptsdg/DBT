@@ -48,7 +48,7 @@ models:
       +grants: 
         select: ['DBT_TRANSFORMER_ROLE']
         
-    transformation:           
+    intermediate:           
       +materialized: view 
       +tags: ["transforming"]
       +grants:
@@ -66,4 +66,8 @@ snapshots:
   LP_MateuPastor:
     +grants:
       select: ['DBT_TRANSFORMER_ROLE']
+
+dispatch:
+  - macro_namespace: dbt
+    search_order: ['dbt_project_evaluator', 'dbt']
     

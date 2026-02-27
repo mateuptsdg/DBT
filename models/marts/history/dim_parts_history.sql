@@ -1,5 +1,5 @@
 with snapshot_parts as (
-    select * from {{ ref('snsh_part') }}
+    select * from {{ ref('snp_part') }}
 ),
 
 final as (
