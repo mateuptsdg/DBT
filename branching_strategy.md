@@ -7,6 +7,7 @@ Este documento define el flujo de trabajo Git para el proyecto. El objetivo es m
 El siguiente gráfico ilustra cómo las "ramas especiales" (features) nacen, se desarrollan y se integran primero en **QA** para su validación antes de llegar a **Main**.
 
 ```mermaid
+%%{init: { 'theme': 'dark' } }%%
 gitGraph
     commit id: "Init"
     branch qa
@@ -35,7 +36,3 @@ gitGraph
     %% Integración final en QA
     checkout qa
     merge feature/custom-tests id: "Merge Tests"
-    
-    %% Despliegue a Producción
-    checkout main
-    merge qa tag: "v1.1.0"
