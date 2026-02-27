@@ -1,4 +1,4 @@
-name: Orquestación Diaria (Load + Docs)
+name: Orquestación Diaria (Daily Load)
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  daily_chain:
+  daily_load:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -15,24 +15,10 @@ jobs:
           python-version: '3.9'
       - run: pip install requests
 
-      # Carga Incremental
-      - name: 1. Ejecutar Daily Load
+      - name: Ejecutar Daily Load
         env:
           DBT_API_TOKEN: ${{ secrets.DBT_API_TOKEN }}
           DBT_ACCOUNT_ID: ${{ secrets.DBT_ACCOUNT_ID }}
           DBT_JOB_ID: ${{ secrets.DBT_JOB_DAILY_LOAD }}
         run: |
-          # Recordatorio: Configura en dbt Cloud este job con pasos:
-          # 1. dbt source freshness
-          # 2. dbt build
-          python scripts/orchestrator.py --job_id $DBT_JOB_ID --message "Daily Load Triggered"
-
-      # Generar Documentación
-      - name: 2. Actualizar Documentación
-        if: success()  
-        env:
-          DBT_API_TOKEN: ${{ secrets.DBT_API_TOKEN }}
-          DBT_ACCOUNT_ID: ${{ secrets.DBT_ACCOUNT_ID }}
-          DBT_JOB_ID: ${{ secrets.DBT_JOB_DOCS }}
-        run: |
-          python scripts/orchestrator.py --job_id $DBT_JOB_ID --message "Docs Update Triggered"
+          python scripts/orchestrator.py --job_id $DBT_JOB_ID --message "Daily Load Triggered via GitHub"
