@@ -1,8 +1,7 @@
 name: Orquestación Semanal (Full Load)
 
 on:
-  schedule:
-    - cron: '0 4 * * 0' # Domingos 04:00 UTC
+  #Se ha desactivado la schedule ara ahorar recursos
   workflow_dispatch:
 
 jobs:
