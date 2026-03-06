@@ -1,8 +1,7 @@
 name: Orquestación Diaria (Daily Load)
 
 on:
-  schedule:
-    - cron: '0 6 * * 1-6' # Lunes a Sábado 06:00 UTC
+  #Se ha desactivado el cron para ahorrar recursos
   workflow_dispatch:
 
 jobs:
